@@ -2,32 +2,47 @@
 //
 
 #include "stdafx.h"
-#include "Human.h"
+#include "CollisionMaths.h"
+#include "Texture.h"
+#include "Window.h"
 
 #include <iostream>
 
+#define PRINT std::cout <<
+#define ENDL << std::endl;
+
 int _tmain(int argc, _TCHAR* argv[])
 {
-	Human hunter("Hunter_Noob01", 100, 100, 100, 100);
 
-	// Will print out your name i passed through the constructor, "Hunter_Noob01".
-	std::cout << hunter.name << std::endl;
-	// Now setting your name to something else, instead of using a setter function. Theres no need for it.
-	hunter.name = "Hunter_ReallyBadNoob01";
-	// Printing out the new string i set it to.
-	std::cout << hunter.name << std::endl;
-	// I want to create a spacer line between this one and the health i print out below:
-	std::cout << "\n" << std::endl;
-	// Just one way of making a line, nothing special.
+	Window screen(1280, 720);
+	// CollisionMaths is just an example class.
+	CollisionMaths rect;
 
-	// Same with all the other values; health, hunger, stamina and thirst.
+	// Texture class is just a texture mapped onto CollisionMaths, the rectangle.
+	Texture img(10, 10);
 
-	// Heres another example using health.
-	std::cout << hunter.health << std::endl;
-	hunter.health = 50;
-	std::cout << hunter.health << std::endl;
+	if (rect.X <= 0)
+	{
+		rect.X = 0;
+	}
 
-	// Down below is just a way of pausing the program so it doesnt exit till i say so. (Only works on windows machines)
+	if (rect.X + screen.width >= screen.width)
+	{
+		rect.X = screen.width - img.width;
+	}
+
+	if (rect.Y <= 0)
+	{
+		rect.Y = 0;
+	}
+
+	if (rect.Y + img.height >= screen.height)
+	{
+		rect.Y = screen.height - img.height;
+	}
+
+
+	// Down below is just a way of pausing the program so it doesn't exit till i say so. (Only works on windows machines)
 	system("PAUSE");
 	return 0;
 }
